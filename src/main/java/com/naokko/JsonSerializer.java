@@ -30,7 +30,7 @@ public class JsonSerializer {
             for (String value : values) {
                 String field = value.substring(0, value.indexOf(":"));
                 value = value.substring(value.indexOf(":")+1);
-                fieldValueMap.put(field, value);
+                fieldValueMap.put(field.toLowerCase(), value);
             }
             for(Method method : methods){
                 if(method.getName().startsWith("set"))
@@ -43,10 +43,10 @@ public class JsonSerializer {
                             method.invoke(object, fieldValueMap.get(field));
                             break;
                         case "int":
-                            method.invoke(object, Integer.parseInt(fieldValueMap.get(field)));
+                            method.invoke(object, Integer.parseInt(fieldValueMap.get(field.toLowerCase())));
                             break;
                         case "boolean":
-                            method.invoke(object, Boolean.parseBoolean(fieldValueMap.get(field)));
+                            method.invoke(object, Boolean.parseBoolean(fieldValueMap.get(field.toLowerCase())));
                         //Here I should add more cases for the data types... By now It works for the Cat class
                     }
                 }

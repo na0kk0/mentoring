@@ -13,6 +13,9 @@ public class Main {
         Cat testCat = serializer.deserialize(Cat.class,"{name:Naokko,age:1,color:Black}");
         Record testRecord = serializer.deserialize(Record.class,"{name:Synkronized,artist:Jamiroquai,yearrelease:1999,favorite:true}");
         System.out.println(serializer.serilaize(testCat));
-        System.out.println(serializer.serilaize(testRecord));
+        System.out.println(serializer.serilaize(record));
+        Record test2 = serializer.deserialize(Record.class, serializer.serilaize(record));
+        System.out.println(test2.getArtist());
+
     }
 }
