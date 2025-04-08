@@ -10,9 +10,9 @@ public class JsonSerializer {
         Method[] methods = source.getClass().getDeclaredMethods();
         for(Method method : methods)
         {
-            if(method.getName().startsWith("get"))
+            if(method.getName().startsWith("get") || method.getName().startsWith("is"))
             {
-                String field = method.getName().substring(3);
+                String field = method.getName().startsWith("get") ? method.getName().substring(3) : method.getName().substring(2);
                 field = field.substring(0, 1).toLowerCase() + field.substring(1);
                 json += field+":"+method.invoke(source) + ",";
             }
@@ -35,7 +35,7 @@ public class JsonSerializer {
             for(Method method : methods){
                 if(method.getName().startsWith("set"))
                 {
-                    String field = method.getName().substring(3).toLowerCase();
+                    String field =method.getName().substring(3).toLowerCase();
                     String type = method.getParameterTypes()[0].getName();
                     switch(type) // I could use a function to check this outside the deserialize function
                     {
@@ -45,6 +45,8 @@ public class JsonSerializer {
                         case "int":
                             method.invoke(object, Integer.parseInt(fieldValueMap.get(field)));
                             break;
+                        case "boolean":
+                            method.invoke(object, Boolean.parseBoolean(fieldValueMap.get(field)));
                         //Here I should add more cases for the data types... By now It works for the Cat class
                     }
                 }

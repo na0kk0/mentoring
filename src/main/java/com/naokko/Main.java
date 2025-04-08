@@ -6,9 +6,13 @@ public class Main {
     public static void main(String[] args) throws IllegalAccessException, InvocationTargetException {
         JsonSerializer serializer = new JsonSerializer();
         Cat cat = new Cat("Meowi", 1, "Orange");
+        Record record = new Record("4Ever", "Axolotes Mexicanos", 2024, true);
 
         System.out.println(serializer.serilaize(cat));
-        Cat test = serializer.deserialize(Cat.class,"{name:Naokko,age:1,color:Black}");
-        System.out.println(serializer.serilaize(test));
+        System.out.println(serializer.serilaize(record));
+        Cat testCat = serializer.deserialize(Cat.class,"{name:Naokko,age:1,color:Black}");
+        Record testRecord = serializer.deserialize(Record.class,"{name:Synkronized,artist:Jamiroquai,yearrelease:1999,favorite:true}");
+        System.out.println(serializer.serilaize(testCat));
+        System.out.println(serializer.serilaize(testRecord));
     }
 }
